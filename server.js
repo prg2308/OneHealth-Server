@@ -51,6 +51,14 @@ app.use('/api', userRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/doctors', doctorRoutes);
 
+app.get('/', (req, res) => {
+    res.status(200).json({ message: "Welcome to OneHealth's API section!" })
+})
+
+app.get('*', (req, res) => {
+    res.status(200).json({ message: "404 Not Found :(" })
+})
+
 app.use(function (err, req, res, next) {
     console.log(err);
     const { statusCode = 500 } = err

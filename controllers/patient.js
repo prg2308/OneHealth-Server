@@ -12,7 +12,7 @@ const { report } = require('../routes/user');
 
 module.exports.getAllPatients = async (req, res) => {
     const patients = await Patient.find({}).populate('user').populate('appointments');
-    if (!patients) {
+    if (!patients.length) {
         throw new ExpressError('Patients not found', 404)
     }
 
@@ -75,15 +75,15 @@ module.exports.deletePatient = async (req, res) => {
 module.exports.getReports = async (req, res) => {
     const { id } = req.params;
     const reports = await Report.find({ patient: id }).populate('doctor')
-    if (!reports) {
+    if (!reports.length) {
         throw new ExpressError('No Reports Yet', 404)
     }
 
     const modifiedReports = await reports.map(r => {
         const docName = r.doctor.name
-        return {...r._doc, doctor: docName}
+        return { ...r._doc, doctor: docName }
     })
-    
+
     res.status(200).json(modifiedReports)
 }
 

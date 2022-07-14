@@ -17,8 +17,8 @@ const userRoutes = require('./routes/user');
 const patientRoutes = require('./routes/patient')
 const doctorRoutes = require('./routes/doctor')
 const ExpressError = require('./utils/ExpressError');
-
-mongoose.connect('mongodb://localhost:27017/onehealth', { useNewUrlParser: true, useUnifiedTopology: true })
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/onehealth'
+mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Connected to mongod')
     })
@@ -50,10 +50,6 @@ app.use(express.json());
 app.use('/api', userRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/doctors', doctorRoutes);
-
-app.use((req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
-});
 
 app.use(function (err, req, res, next) {
     console.log(err);

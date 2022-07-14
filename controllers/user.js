@@ -47,7 +47,7 @@ module.exports.login = async (req, res) => {
 
 module.exports.getAllAppointments = async (req, res) => {
     const appointments = await Appointment.find({}).populate('doctor').populate('patient')
-    if (!appointments) {
+    if (!appointments.length) {
         throw new ExpressError('No Appointments Found', 404)
     }
     res.status(200).json(appointments)

@@ -10,7 +10,7 @@ const { isAdmin } = require('../utils/middleware')
 router.post('/login', passport.authenticate('local'), catchAsync(userControllers.login))
 
 //Route to get all appointments
-router.get('/appointments', isAdmin, catchAsync(userControllers.getAllAppointments))
+router.get('/appointments', catchAsync(userControllers.getAllAppointments))
 
 //Route to get all reports
 router.get('/reports', isAdmin, catchAsync(userControllers.getAllReports))

@@ -60,6 +60,7 @@ app.use(function (err, req, res, next) {
     res.status(statusCode).json(err)
 });
 
-app.listen(8080, () => {
+const port = process.env.PORT || 8080
+app.listen(port, () => {
     console.log('Hosted on port 8080')
 })  

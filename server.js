@@ -47,9 +47,9 @@ passport.deserializeUser(User.deserializeUser())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 
-app.use('/api', userRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/doctors', doctorRoutes);
+app.use('/api', userRoutes);
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: "Welcome to OneHealth's API section!" })

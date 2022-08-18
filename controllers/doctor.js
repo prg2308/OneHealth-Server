@@ -38,7 +38,7 @@ module.exports.createDoctor = async (req, res) => {
     doctor.user = regUser;
     doctor.appointments = appointments;
     const savedDoctor = await doctor.save();
-    return res.status(201).json(savedDoctor);
+    return res.status(201).json(savedDoctor)
 }
 
 module.exports.findDoctor = async (req, res) => {

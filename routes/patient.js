@@ -8,7 +8,7 @@ const { validatePatient, canModifyPatient, isAdmin } = require('../utils/middlew
 
 //Route to get all patients
 
-router.get('/', isAdmin, catchAsync(patientControllers.getAllPatients))
+router.get('/', catchAsync(patientControllers.getAllPatients))
 
 //________________________________________________________________
 

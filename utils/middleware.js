@@ -8,6 +8,8 @@ const User = require('../models/user');
 const Report = require('../models/report');
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
+const { createDoctorSchema } = require('../utils/joiSchema');
+const { create } = require('../models/report');
 
 module.exports.validatePatient = catchAsync(async (req, res, next) => {
     const { id } = req.params;
@@ -81,10 +83,21 @@ module.exports.validateDoctor = catchAsync(async (req, res, next) => {
         throw new ExpressError('User not found', 404);
     }
 
-    const user = doctor.user
-    if (((req.session.passport) && (req.session.passport.user === user.username)) || ((req.session.passport) && (req.session.passport.user === 'admin'))) {
-        next()
-    } else {
-        throw new ExpressError('Unauthorized', 401)
-    }
+    next()
+
+    // const user = doctor.user
+    // if (((req.session.passport) && (req.session.passport.user === user.username)) || ((req.session.passport) && (req.session.passport.user === 'admin'))) {
+    //     next()
+    // } else {
+    //     throw new ExpressError('Unauthorized', 401)
+    // }
 })
+
+module.exports.doctorSchemaValidate = function (req, res, next) {
+    const { error } = createDoctorSchema.validate(req.body)
+    if (error) {
+        throw new ExpressError(error.details[0].message, 400)
+    } else {
+        next()
+    }
+}

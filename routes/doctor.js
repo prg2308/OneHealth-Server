@@ -4,6 +4,7 @@ const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const { isAdmin, validateDoctor, canModifyDoctor } = require('../utils/middleware')
 const doctorControllers = require('../controllers/doctor')
+const { doctorSchemaValidate } = require('../utils/middleware')
 
 //________________________________________________________________
 
@@ -14,7 +15,7 @@ router.route('/')
         catchAsync(doctorControllers.getAllDoctors)
     )
     .post(
-        isAdmin,
+        doctorSchemaValidate,
         catchAsync(doctorControllers.createDoctor)
     )
 

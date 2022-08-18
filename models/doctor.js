@@ -29,7 +29,6 @@ const doctorSchema = new Schema({
 
     DOB: {
         type: Date,
-        required: true
     },
 
     appointments: [
